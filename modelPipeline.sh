@@ -37,7 +37,7 @@ fi
 DIR="DTPipeline/processed"
 if [ ! -d $DIR ]
 then
-echo "Creating procced files folder"
+echo "Creating processed files folder"
 mkdir -p "DTPipeline/processed"
 else echo "'$DIR' already exists"
 fi
