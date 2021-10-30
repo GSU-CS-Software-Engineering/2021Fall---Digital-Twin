@@ -1,0 +1,1 @@
+A dummy settings file for the dummyDeltaGen.py script
