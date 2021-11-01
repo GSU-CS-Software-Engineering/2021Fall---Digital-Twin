@@ -9,7 +9,7 @@ with open('jobQueue.json') as json_file:
         print("Batch ID: " +str(batchID))
         for jobID in data['jobQueue'][batchID]:
             print("Job ID: " +str(jobID))
-            filePriority = 0
+            filePriority = 1
             for fileID in data['jobQueue'][batchID][jobID]:
                 print("File ID: " +str(fileID))
                 if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] == filePriority):
@@ -32,3 +32,5 @@ with open('jobQueue.json') as json_file:
                     #Set the priority to 0 when file has been processed
                     data['jobQueue'][batchID][jobID][fileID]['filePriority'] = 0
                     filePriority += 1
+                else:
+                    print("File priority mismatch.")
