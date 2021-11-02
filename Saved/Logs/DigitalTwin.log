@@ -2454,3 +2454,35 @@ LogConfig: Setting CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]]
 [2021.11.02-11.27.39:304][883]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Blueprints/KeyBinding.KeyBinding
 [2021.11.02-11.27.40:370][883]LogSlateStyle: Warning: Unable to find Slate Widget Style 'None'. Using FToolbarStyle defaults instead.
 [2021.11.02-11.27.40:370][883]LogSlateStyle: Warning: Unable to find Slate Widget Style 'None'. Using FToolbarStyle defaults instead.
+[2021.11.02-11.31.13:822][ 58]LogSlate: Window 'KeyBinding' being destroyed
+[2021.11.02-11.31.13:825][ 58]LogSlate: Window 'KeyBinding' being destroyed
+[2021.11.02-11.31.13:828][ 58]LogWorld: UWorld::CleanupWorld for World_11, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.31.13:829][ 58]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.31.16:510][ 58]LogWorld: UWorld::CleanupWorld for World_17, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.31.16:510][ 58]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.31.16:521][ 58]LogWorld: UWorld::CleanupWorld for World_16, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.31.16:521][ 58]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.31.16:906][ 58]LogUObjectHash: Compacting FUObjectHashTables data took   5.30ms
+[2021.11.02-11.31.18:456][ 58]LogSlate: Window 'Save Content' being destroyed
+[2021.11.02-11.31.18:517][ 58]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/KeyBinding" FILE="../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/Blueprints/KeyBinding.uasset" SILENT=true
+[2021.11.02-11.31.18:530][ 58]LogSavePackage: Moving '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/KeyBinding782E6E1B4F1264F7042AC1AE05DADF45.tmp' to '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/Blueprints/KeyBinding.uasset'
+[2021.11.02-11.31.18:535][ 58]LogStall: Shutdown...
+[2021.11.02-11.31.18:539][ 58]LogStall: Shutdown complete.
+[2021.11.02-11.31.18:663][ 58]LogSlate: Window 'DigitalTwin - Unreal Editor' being destroyed
+[2021.11.02-11.31.18:664][ 58]LogWindowsTextInputMethodSystem: Display: IME system deactivated.
+[2021.11.02-11.31.19:823][ 58]AssetCheck: New page: Asset Save: KeyBinding
+[2021.11.02-11.31.19:823][ 58]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/KeyBinding.KeyBinding
+[2021.11.02-11.31.19:825][ 59]Cmd: QUIT_EDITOR
+[2021.11.02-11.31.19:825][ 59]LogCore: Engine exit requested (reason: UUnrealEdEngine::CloseEditor())
+[2021.11.02-11.31.19:827][ 59]LogCore: Engine exit requested (reason: EngineExit() was called; note: exit was already requested)
+[2021.11.02-11.31.19:827][ 59]LogStaticMesh: Abandoning remaining async distance field tasks for shutdown
+[2021.11.02-11.31.19:827][ 59]LogStaticMesh: Abandoning remaining async card representation tasks for shutdown
+[2021.11.02-11.31.20:585][ 59]LogAudio: Display: Beginning Audio Device Manager Shutdown (Module: AudioMixerXAudio2)...
+[2021.11.02-11.31.20:585][ 59]LogAudio: Display: Destroying 1 Remaining Audio Device(s)...
+[2021.11.02-11.31.20:585][ 59]LogAudio: Display: Audio Device unregistered from world 'CollaborativeViewer_P'.
+[2021.11.02-11.31.20:585][ 59]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.11.02-11.31.20:586][ 59]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.11.02-11.31.20:770][ 59]LogAudio: Display: Audio Device Manager Shutdown
+[2021.11.02-11.31.20:775][ 59]LogSlate: Slate User Destroyed.  User Index 0, Is Virtual User: 0
+[2021.11.02-11.31.20:775][ 59]LogExit: Preparing to exit.
+[2021.11.02-11.31.21:678][ 59]LogUObjectHash: Compacting FUObjectHashTables data took   3.86ms
