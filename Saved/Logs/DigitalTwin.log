@@ -2364,3 +2364,93 @@ LogConfig: Setting CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]]
 [2021.11.02-11.07.44:710][ 80]LogUObjectHash: Compacting FUObjectHashTables data took   4.14ms
 [2021.11.02-11.07.44:740][ 81]LogPlayLevel: Display: Destroying online subsystem :Context_33
 [2021.11.02-11.07.44:768][ 81]LogUObjectHash: Compacting FUObjectHashTables data took   0.94ms
+[2021.11.02-11.17.41:788][ 31]LogUObjectHash: Compacting FUObjectHashTables data took   1.28ms
+[2021.11.02-11.17.41:838][ 31]LogSavePackage: Moving '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/CollaborativeViewer_P_Auto22DDA8F1C4941AD210684548D44F7CA10.tmp' to '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/Autosaves/Game/CollaborativeViewer/Maps/CollaborativeViewer_P_Auto2.umap'
+[2021.11.02-11.17.41:840][ 31]LogFileHelpers: Editor autosave (incl. external actors) for '/Game/CollaborativeViewer/Maps/CollaborativeViewer_P' took 0.083
+[2021.11.02-11.17.41:840][ 31]LogFileHelpers: Editor autosave (incl. sublevels & external actors) for all levels took 0.083
+[2021.11.02-11.25.43:736][737]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/KeyBinding" FILE="../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/Blueprints/KeyBinding.uasset" SILENT=true
+[2021.11.02-11.25.43:749][737]LogSavePackage: Moving '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/KeyBindingE640545041CD3C7AB815B9A6829F6D86.tmp' to '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/Blueprints/KeyBinding.uasset'
+[2021.11.02-11.25.43:812][737]AssetCheck: New page: Asset Save: KeyBinding
+[2021.11.02-11.25.43:812][737]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/KeyBinding.KeyBinding
+[2021.11.02-11.25.48:745][178]LogUObjectHash: Compacting FUObjectHashTables data took   5.24ms
+[2021.11.02-11.25.48:796][178]LogSavePackage: Moving '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/CollaborativeViewer_PABA124A04E95F5D291DFE59E6E514CFE.tmp' to '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/CollaborativeViewer/Maps/CollaborativeViewer_P.umap'
+[2021.11.02-11.25.48:801][178]Message dialog closed, result: Ok, title: Unable to Check Out From Source Control!, text: The following assets could not be successfully checked out from source control:
+/Game/CollaborativeViewer/Maps/CollaborativeViewer_P_BuiltData
+[2021.11.02-11.25.48:802][178]LogSavePackage: Moving '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Saved/CollaborativeViewer_P_BuiltData0057E8E54B508D97AF51FBBC6ADE0ACB.tmp' to '../../../../../../Users/ja112/Documents/GitHub/2021Fall---Digital-Twin/Content/CollaborativeViewer/Maps/CollaborativeViewer_P_BuiltData.uasset'
+[2021.11.02-11.25.48:803][178]Message dialog closed, result: Ok, title: Unable to Check Out From Source Control!, text: The following assets could not be successfully checked out from source control:
+/Game/CollaborativeViewer/Maps/CollaborativeViewer_P_BuiltData
+[2021.11.02-11.25.48:803][178]LogFileHelpers: Saving map 'CollaborativeViewer_P' took 0.101
+[2021.11.02-11.25.49:602][178]AssetCheck: New page: Asset Save: multiple assets
+[2021.11.02-11.25.49:602][178]LogContentValidation: Display: Validating MapBuildDataRegistry /Game/CollaborativeViewer/Maps/CollaborativeViewer_P_BuiltData.CollaborativeViewer_P_BuiltData
+[2021.11.02-11.25.49:602][178]LogContentValidation: Display: Validating World /Game/CollaborativeViewer/Maps/CollaborativeViewer_P.CollaborativeViewer_P
+[2021.11.02-11.25.55:509][713]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2021.11.02-11.25.55:514][713]BlueprintLog: New page: Pre-Play auto-recompile
+[2021.11.02-11.25.55:523][713]LogPlayLevel: [PlayLevel] Compiling KeyBinding before play...
+[2021.11.02-11.25.55:583][713]LogUObjectHash: Compacting FUObjectHashTables data took   4.86ms
+[2021.11.02-11.25.55:587][713]LogPlayLevel: PlayLevel: Blueprint regeneration took 72 ms (1 blueprints)
+[2021.11.02-11.25.55:587][713]PIE: New page: PIE session: CollaborativeViewer_P (Nov 2, 2021, 3:25:55 AM)
+[2021.11.02-11.25.55:587][713]LogPlayLevel: Creating play world package: /Game/CollaborativeViewer/Maps/UEDPIE_0_CollaborativeViewer_P
+[2021.11.02-11.25.55:600][713]LogPlayLevel: PIE: StaticDuplicateObject took: (0.013304s)
+[2021.11.02-11.25.55:601][713]LogAIModule: Creating AISystem for world CollaborativeViewer_P
+[2021.11.02-11.25.55:602][713]LogPlayLevel: PIE: World Init took: (0.001347s)
+[2021.11.02-11.25.55:602][713]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/CollaborativeViewer/Maps/CollaborativeViewer_P.CollaborativeViewer_P to /Game/CollaborativeViewer/Maps/UEDPIE_0_CollaborativeViewer_P.CollaborativeViewer_P (0.014812s)
+[2021.11.02-11.25.55:634][713]LogUObjectHash: Compacting FUObjectHashTables data took   3.37ms
+[2021.11.02-11.25.55:635][713]LogAudio: Display: Creating Audio Device:                 Id: 21, Scope: Unique, Realtime: True
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.11.02-11.25.55:635][713]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.11.02-11.25.55:635][713]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.11.02-11.25.55:636][713]LogAudio: Display: Using built-in audio occlusion.
+[2021.11.02-11.25.55:636][713]LogAudioMixer: Display: Initializing audio mixer.
+[2021.11.02-11.25.55:638][713]LogAudioMixer: Display: 0: FrontLeft
+[2021.11.02-11.25.55:638][713]LogAudioMixer: Display: 1: FrontRight
+[2021.11.02-11.25.55:645][713]LogAudioMixer: Display: Using Audio Device Speakers (High Definition Audio Device)
+[2021.11.02-11.25.55:646][713]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.11.02-11.25.55:646][713]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.11.02-11.25.55:646][713]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.11.02-11.25.55:647][713]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.11.02-11.25.55:647][713]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.11.02-11.25.55:648][713]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.11.02-11.25.55:648][713]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.11.02-11.25.55:648][713]LogInit: FAudioDevice initialized.
+[2021.11.02-11.25.55:648][713]LogAudio: Display: Audio Device (ID: 21) registered with world 'CollaborativeViewer_P'.
+[2021.11.02-11.25.55:656][713]LogLoad: Game class is 'BP_CollaborativeViewer_GameMode_C'
+[2021.11.02-11.25.55:670][713]LogWorld: Bringing World /Game/CollaborativeViewer/Maps/UEDPIE_0_CollaborativeViewer_P.CollaborativeViewer_P up for play (max tick rate 0) at 2021.11.02-07.25.55
+[2021.11.02-11.25.55:670][713]LogWorld: Bringing up level for play took: 0.003597
+[2021.11.02-11.25.55:670][713]LogOnline: OSS: Creating online subsystem instance for: :Context_34
+[2021.11.02-11.25.55:672][713]LogVoiceEncode: Display: EncoderVersion: libopus 1.1-beta
+[2021.11.02-11.25.55:672][713]LogOnlineVoice: OSS: StartLocalProcessing(0) returned 0xFFFFFFFF
+[2021.11.02-11.25.55:672][713]LogOnlineVoice: OSS: Starting networked voice for user: 0
+[2021.11.02-11.25.55:672][713]LogGameMode: Display: Match State Changed from EnteringMap to WaitingToStart
+[2021.11.02-11.25.55:672][713]LogGameState: Match State Changed from EnteringMap to WaitingToStart
+[2021.11.02-11.25.55:672][713]LogGameMode: Display: Match State Changed from WaitingToStart to InProgress
+[2021.11.02-11.25.55:678][713]LogGameState: Match State Changed from WaitingToStart to InProgress
+[2021.11.02-11.25.55:678][713]PIE: Server logged in
+[2021.11.02-11.25.55:679][713]PIE: Play in editor total start time 0.166 seconds.
+[2021.11.02-11.25.55:757][714]LogViewport: Display: Viewport MouseLockMode Changed, LockOnCapture -> DoNotLock
+[2021.11.02-11.25.55:757][714]LogViewport: Display: Viewport MouseCaptureMode Changed, CapturePermanently_IncludingInitialMouseDown -> CaptureDuringMouseDown
+[2021.11.02-11.26.00:418][912]LogCharacterMovement: BP_Touch_WalkMode_Pawn_C_0 is stuck and failed to move! Velocity: X=-8.79 Y=-34.84 Z=0.00 Location: X=-1003.01 Y=1446.19 Z=107.73 Normal: X=0.96 Y=-0.00 Z=-0.28 PenetrationDepth:0.323 Actor: Component:StaticMeshComponent0 BoneName:None (0 other events since notify)
+[2021.11.02-11.26.28:331][481]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.11.02-11.26.28:332][481]LogWorld: BeginTearingDown for /Game/CollaborativeViewer/Maps/UEDPIE_0_CollaborativeViewer_P
+[2021.11.02-11.26.28:332][481]LogWorld: UWorld::CleanupWorld for CollaborativeViewer_P, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.26.28:333][481]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.26.28:340][481]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.11.02-11.26.28:351][481]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.26.28:382][481]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.11.02-11.26.28:383][481]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.11.02-11.26.28:384][481]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.11.02-11.26.28:393][481]LogUObjectHash: Compacting FUObjectHashTables data took   3.82ms
+[2021.11.02-11.26.28:428][481]LogUObjectHash: Compacting FUObjectHashTables data took   2.43ms
+[2021.11.02-11.26.28:450][482]LogPlayLevel: Display: Destroying online subsystem :Context_34
+[2021.11.02-11.26.28:482][482]LogUObjectHash: Compacting FUObjectHashTables data took   2.86ms
+[2021.11.02-11.27.35:973][633]LogWorld: UWorld::CleanupWorld for World_13, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.27.35:973][633]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.27.35:985][633]LogWorld: UWorld::CleanupWorld for World_12, bSessionEnded=true, bCleanupResources=true
+[2021.11.02-11.27.35:985][633]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.11.02-11.27.39:304][883]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Blueprints/KeyBinding.KeyBinding
+[2021.11.02-11.27.40:370][883]LogSlateStyle: Warning: Unable to find Slate Widget Style 'None'. Using FToolbarStyle defaults instead.
+[2021.11.02-11.27.40:370][883]LogSlateStyle: Warning: Unable to find Slate Widget Style 'None'. Using FToolbarStyle defaults instead.
