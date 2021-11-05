@@ -28,10 +28,12 @@ if (testFile):
 fileExists = os.path.exists(sys.argv[3]+"/"+sys.argv[1])
 if (fileExists):
     i = 0
+    #Split filename and extension
+    temp = sys.argv[1].split('.')
     while (fileExists):
         i += 1
-        fileExists = os.path.exists(sys.argv[3]+"/"+sys.argv[1]+"("+str(i)+")")
-    file = open(sys.argv[3]+"/"+sys.argv[1]+"("+str(i)+")", 'x')
+        fileExists = os.path.exists(sys.argv[3]+"/"+temp[0]+"("+str(i)+")."+temp[1])
+    file = open(sys.argv[3]+"/"+temp[0]+"("+str(i)+")."+temp[1], 'x')
 else:
     file = open(sys.argv[3]+"/"+sys.argv[1], 'x')
 file.close()

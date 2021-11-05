@@ -1,8 +1,8 @@
 import os
-
+import pipelineController.py
 
 print("Running directory check...")
-dirName = ["DTPipeline","DTPipeline/pre-processed","DTPipeline/processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings"]
+dirName = ["DTPipeline","DTPipeline/pre-processed","DTPipeline/processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp/"]
 missingDir = []
 for dir in dirName:
     if not os.path.exists(dir):
@@ -16,7 +16,7 @@ else:
     print("All directories were successfully validated.")
 
 print("Running File check...")
-fileName = ["DTPipeline/Settings/Batch Settings/dummySettings.txt"]
+fileName = ["DTPipeline/Settings/Batch Settings/dummySettings.txt","DTPipeline/Settings/Temp/ProcessingState.json"]
 missingFile = []
 for file in fileName:
     if not os.path.exists(file):
@@ -52,3 +52,5 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
 
     else:
         print("First time setup aborted.\nExiting.")
+
+PipelineController.setProcessState(2)

@@ -1,7 +1,7 @@
 import os
 import json
 import subprocess
-
+import pipelineController.py
 #Read a json file
 with open('jobQueue.json') as json_file:
     data = json.load(json_file)
@@ -32,5 +32,15 @@ with open('jobQueue.json') as json_file:
                     #Set the priority to 0 when file has been processed
                     data['jobQueue'][batchID][jobID][fileID]['filePriority'] = 0
                     filePriority += 1
+                    try:
+                        #Write file to disk
+                        with open('jobQueue.json', 'w') as outfile:
+                            json.dump(data, outfile)
+                    except FileExistsError:
+                        print("Directory jobQueue.json already exists and could not be overwritten.")
+                elif (data['jobQueue'][batchID][jobID][fileID]['filePriority'] == 0):
+                    print("File already processed in queue, skipping...")
                 else:
                     print("File priority mismatch.")
+
+PipelineController.setProcessState(6)
