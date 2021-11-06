@@ -1,8 +1,8 @@
 import os
-import pipelineController.py
+import json
 
 print("Running directory check...")
-dirName = ["DTPipeline","DTPipeline/pre-processed","DTPipeline/processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp/"]
+dirName = ["DTPipeline","DTPipeline/Pre-processed","DTPipeline/Processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp","DTPipeline/BackupCopies"]
 missingDir = []
 for dir in dirName:
     if not os.path.exists(dir):
@@ -53,4 +53,14 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
     else:
         print("First time setup aborted.\nExiting.")
 
-PipelineController.setProcessState(2)
+try:
+    stateID = 2
+    #Write file to disk
+    file = "DTPipeline/Settings/Temp/ProcessingState.json"
+    with open(file, 'w') as outfile:
+        data = {}
+        data['ProcessingState'] = stateID
+        json.dump(data, outfile)
+        print("Processing State Updated: " +str(stateID))
+except FileExistsError:
+    print("Error overwriting file: " +file)
