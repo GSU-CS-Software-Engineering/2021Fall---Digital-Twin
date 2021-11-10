@@ -1,5 +1,6 @@
 import os
 import json
+import sys
 
 print("Running directory check...")
 dirName = ["DTPipeline","DTPipeline/Pre-processed","DTPipeline/Processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp","DTPipeline/BackupCopies"]
@@ -28,6 +29,8 @@ if (len(missingFile) > 0):
     print("")
 else:
     print("All files were successfuly validated.")
+    from ProcessState import setProcessState
+    setProcessState(1) #modelPipelineSetup.py finished
 
 if (len(missingDir) > 0 or len(missingFile) > 0):
     result = input("Would you like to set up the listed required directories and files? (Y/N)\n")
@@ -44,23 +47,28 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
         for file in missingFile:
             #Create target file if it does not already exist
             try:
-                #Write file to disk
-                with open(file, 'w') as outfile:
-                    print("File " +file +" created.")
+                if (file == "DTPipeline/Settings/Temp/ProcessingState.json"):
+                    try:
+                        data = {}
+                        #Write file to disk
+                        file = "DTPipeline/Settings/Temp/ProcessingState.json"
+                        with open(file, 'w') as outfile:
+                            data['ProcessingState'] = 2
+                            json.dump(data, outfile)
+                            print("Processing State Updated: " +str(2))
+                    except FileExistsError:
+                        print("Error overwriting file: " +file)
+                else:
+                    #Write file to disk
+                    with open(file, 'w') as outfile:
+                        print("File " +file +" created.")
             except FileExistsError:
                 print("File " +file +" already exists")
-
+        from ProcessState import setProcessState
+        setProcessState(1) #modelPipelineSetup.py finished
     else:
         print("First time setup aborted.\nExiting.")
-
-try:
-    stateID = 2
-    #Write file to disk
-    file = "DTPipeline/Settings/Temp/ProcessingState.json"
-    with open(file, 'w') as outfile:
-        data = {}
-        data['ProcessingState'] = stateID
-        json.dump(data, outfile)
-        print("Processing State Updated: " +str(stateID))
-except FileExistsError:
-    print("Error overwriting file: " +file)
+        if (os.path.exists("DTPipeline/Settings/Temp/ProcessingState.json")):
+            from ProcessState import setProcessState
+            setProcessState(-1) #modelPipelineSetup.py finished
+        sys.exit()

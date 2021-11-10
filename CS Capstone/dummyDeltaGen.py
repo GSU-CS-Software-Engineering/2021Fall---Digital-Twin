@@ -1,7 +1,6 @@
 import os
 import json
 import sys
-#import time
 
 from pathlib import Path
 
@@ -19,9 +18,6 @@ if (testFile):
 testFile = os.path.exists(sys.argv[4])
 if (testFile):
     print("Settings file found.")
-
-#Wait 2 seconds to simulate job time.
-#time.sleep(2)
 
 #Check if the file exists before writing
 #If it exists, loop (#) until filename(#) does not already exist
