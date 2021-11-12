@@ -3,6 +3,8 @@ import sys
 import json
 import subprocess
 
+if (os.path.exists('fileListUnsorted.json')):
+    os.remove('fileListUnsorted.json')
 if (os.path.exists('jobQueue.json')):
     dataNew = {}
     dataNew['jobQueue'] = {}
@@ -27,7 +29,7 @@ if (os.path.exists('jobQueue.json')):
                         fileExists = os.path.exists(data['jobQueue'][batchID][jobID][fileID]['filePathNP']+'/'+data['jobQueue'][batchID][jobID][fileID]['fileName'])
                         if (fileExists):
                             #delete the file from the pre-processed folder
-                            print("Cleaning up unnecessary file: "+"DTPipeline/BackupCopies/"+data['jobQueue'][batchID][jobID][fileID]['fileName'])
+                            print("Cleaning up unnecessary file: "+"DTPipeline/Pre-processed/"+data['jobQueue'][batchID][jobID][fileID]['fileName'])
                             os.remove(data['jobQueue'][batchID][jobID][fileID]['filePathNP']+'/'+data['jobQueue'][batchID][jobID][fileID]['fileName'])
                         else:
                             i = 0

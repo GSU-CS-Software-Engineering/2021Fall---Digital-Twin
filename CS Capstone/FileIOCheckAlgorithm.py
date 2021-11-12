@@ -1,82 +1,171 @@
-#!/usr/bin/python
+import os
+import sys
+import json
+import glob
 
-import os, sys, json
-from csv import DictReader
-#import PipelineController
+#initialize variables
+#Read a json file
+with open("DTPipeline/Settings/Temp/fileExtensions.json") as json_file:
+    data = json.load(json_file)
+fileExtensions = [] #list of known extensions
+for item in data['knownFileExtensions']:
+    fileExtensions.append(data['knownFileExtensions'][item])
 
-# This is the collection of known file extensions that should be processed
-def acceptable_ext():
-    fileName = open('KnownExt.csv', 'r')
-    try:
-        if DEBUG:
-            print("ITERATING THESE FILES TO COMPARE TO KNOWN EXTENSIONS FROM CSV FILE")
-        with fileName as read_obj:
-            try:
-                csv_dict_reader = DictReader(read_obj)
-                for each in list_Entry:
-                    if DEBUG:
-                        print(each)
-                    for row in csv_dict_reader:
-                        if DEBUG:
-                            print("CAD: ", row['CAD'], " IMAGE: ", row['IMAGE'])
-                        if each.endswith(row['CAD']):
-                            list_Unsorted.append(each)
-                        if each.endswith(row['IMAGE']):
-                            list_Unsorted.append(each)
-            finally:
-                fileName.close()
-            
-    except TypeError:
-        print("No valid extension type files found")
-        
-        
-# This will collect files within the current directory    
-def files_only(): 
-    try:
-        if DEBUG:
-            print("THESE ARE ALL THE FILES WITHIN THE PATH DIRECTORY: ")
-        files = [entry for entry in os.listdir(os.curdir)]
-        for entry in files:
-            if os.path.isfile(entry):
-                list_Entry.append(entry)
-                if DEBUG:
-                    print(entry)
-    except OSError:
-        print("No files found in this directory")
-        
-        
-# This will create and write acceptable-known-extension files to "FileListUnsorted.json"
-def writeToJson(list_Unsorted):
-    try:
-        jsonList = json.dumps(list_Unsorted)
-        jsonFile = open("FileListUnsorted.json", "w")
-        jsonFile.write(jsonList)
-        jsonFile.close()
-        return jsonList
+ignoredExtensions = [] #list for ignored file extensions
+for item in data['ignoredFileExtensions']:
+    fileExtensions.append(data['ignoredFileExtensions'][item])
 
-    except:
-        print("Some error occurred")
-    
-        
-# This is set to 'True' for debug of output data
-DEBUG = True
+recipeExtensions = [] #list of known recipe extensions
+for item in data['knownRecipeExtensions']:
+    fileExtensions.append(data['knownRecipeExtensions'][item])
 
-list_Entry=[]
-list_Unsorted=[]
+ignoredRecipeExtensions = [] #list for ignored recipe extensions
+for item in data['ignoredRecipeExtensions']:
+    fileExtensions.append(data['ignoredRecipeExtensions'][item])
 
-# Change the working directory to find import and setting files
-path = "DTPipeline\Settings\Batch Settings\\"
+recipeList = []
+preProcessedFiles = {} #json dictionary
+preProcessedFiles['settingsFile'] = 'default'
+preProcessedFiles['conversionFileList'] = {}
+fileCount = 0 #global file count for each list
+
+for root, dirs, files in os.walk('DTPipeline/Recipes'):
+    for file in files:
+        ignoreExt = False
+        for iExt in ignoredRecipeExtensions:
+            if (file.endsWith(iExt)):
+                ignoreExt = True
+        if (ignoreExt == False):
+            knownExt = False
+            for ext in recipeExtensions:
+                if (file.endswith(ext)):
+                    knownExt = True
+                    if (knownExt == True):
+                        recipeList.append(os.path.join(root, file))
+            if (knownExt == False):
+                print("Warning, the extension for the file: "+file+" was not an expected extension.")
+                print("To add the extension to the list of expected file extensions, enter the word: add")
+                print("To add the extension to the list of ignored file extensions, enter the word: ignore")
+                print("To remove "+file+" from the Pre-processed directory, enter the word: remove")
+                decision = input("To ignore this file during this run, enter the word: unlist\n")
+                validInput = False
+                while (validInput == False):
+                    if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
+                        validInput = True
+                        if (decision == "add"):
+                            fileWithExtension = os.path.splitext(file_name)
+                            recipeExtensions.append(fileWithExtension[1])
+                        elif (decision == "ignore"):
+                            fileWithExtension = os.path.splitext(file_name)
+                            ignoredRecipeExtensions.append(fileWithExtension[1])
+                        elif (decision == "remove"):
+                            os.remove(os.path.join(root, file))
+                        else:
+                            print("Ignoring file: "+file)
+                    else:
+                        validInput = False
+                    if (validInput == False):
+                        print("The previous entry: "+decision +" could not be processed.")
+                        decision = input("Please enter one of the following keywords: \nadd \nignore \nremove \nunlist \n")
+
+
+if (len(recipeList) > 1):
+    iteration = 0
+    validInput = False
+    while (validInput == False):
+        recipe = input("Warning, multiple recipe files were discovered. \nPlease enter the file name and extension of the recipe for this batch: \n")
+        for file in recipeList:
+            if ("DTPipeline/Recipes/"+recipe == file):
+                validInput = True
+                preProcessedFiles['settingsFile'] = file
+        if (validInput == False and iteration > 0):
+            print("The selected file "+recipe+" was not found, please enter a valid filename from the following: ")
+            print(recipeList)
+
+for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
+    for file in files:
+        if (os.path.exists('jobQueue.json')):
+            #Read a json file
+            with open('jobQueue.json') as json_file:
+                data = json.load(json_file)
+                for batchID in data['jobQueue']:
+                    for jobID in data['jobQueue'][batchID]:
+                        for fileID in data['jobQueue'][batchID][jobID]:
+                            if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] != 0 and file != data['jobQueue'][batchID][jobID][fileID]['fileName']):
+                                ignoreExt = False
+                                for iExt in ignoredExtensions:
+                                    if (file.endsWith(iExt)):
+                                        ignoreExt = True
+                                if (ignoreExt == False):
+                                    knownExt = False
+                                    for ext in fileExtensions:
+                                        if (file.endswith(ext)):
+                                            knownExt = True
+                                            if (knownExt == True):
+                                                #If file extension is known, add it to the proper location in the json object
+                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = path
+                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
+                                                fileCount += 1
+                            else:
+                                print("File: "+file+" has already been added to the queue, skipping.")
+        else:
+            ignoreExt = False
+            for iExt in ignoredExtensions:
+                if (file.endsWith(knownExt)):
+                    ignoreExt = True
+            if (ignoreExt == False):
+                knownExt = False
+                for ext in fileExtensions:
+                    if (file.endswith(ext)):
+                        knownExt = True
+                        if (knownExt == True):
+                            #If file extension is known, add it to the proper location in the json object
+                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = path
+                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
+                            fileCount += 1
+                if (knownExt == False):
+                    print("Warning, the extension for the file: "+file+" was not an expected extension.")
+                    print("To add the extension to the list of expected file extensions, enter the word: add")
+                    print("To add the extension to the list of ignored file extensions, enter the word: ignore")
+                    print("To remove "+file+" from the Pre-processed directory, enter the word: remove")
+                    decision = input("To ignore this file during this run, enter the word: unlist\n")
+                    validInput = False
+                    while (validInput == False):
+                        if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
+                            validInput = True
+                            if (decision == "add"):
+                                fileWithExtension = os.path.splitext(file_name)
+                                fileExtensions.append(fileWithExtension[1])
+                            elif (decision == "ignore"):
+                                fileWithExtension = os.path.splitext(file_name)
+                                ignoredExtensions.append(fileWithExtension[1])
+                            elif (decision == "remove"):
+                                os.remove(os.path.join(root, file))
+                            else:
+                                print("Ignoring file: "+file)
+                        else:
+                            validInput = False
+                        if (validInput == False):
+                            print("The previous entry: "+decision +" could not be processed.")
+                            decision = input("Please enter one of the following keywords: \nadd \nignore \nremove \nunlist \n")
 try:
-    os.chdir(path)
-except NotADirectoryError:
-    print("[{0} is not a directory".format(path))
+    #Write file to disk
+    with open('fileListUnsorted.json', 'w') as outfile:
+        json.dump(preProcessedFiles, outfile)
+except FileExistsError:
+    print("File already exists")
 
-files_only()
-acceptable_ext()    
-finalList = writeToJson(list_Unsorted)
+try:
+    data['knownFileExtensions'] = fileExtensions #list of known extensions
+    data['ignoredFileExtensions'] = ignoredExtensions #list for ignored extensions
+    data['knownRecipeExtensions'] = recipeExtensions #list of known recipe extensions
+    data['ignoredRecipeExtensions'] = ignoredRecipeExtensions #list for ignored recipe extensions
+    #Write file to disk
+    with open('DTPipeline/Settings/Temp/ProcessingState.json', 'w') as outfile:
+        json.dump(data, outfile)
+except FileExistsError:
+    print("File already exists")
 
-if DEBUG:
-    print("THESE ARE ACCEPTABLE CASES: ", list_Unsorted)
-    print("FINAL FILTERED FILES: ", finalList)
-#PipelineController.setProcessState(1)
-exit()
+#Set the process state to 3
+from ProcessState import setProcessState
+setProcessState(3)

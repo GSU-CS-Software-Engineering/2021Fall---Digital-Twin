@@ -3,7 +3,7 @@ import json
 import sys
 
 print("Running directory check...")
-dirName = ["DTPipeline","DTPipeline/Pre-processed","DTPipeline/Processed","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp","DTPipeline/BackupCopies"]
+dirName = ["DTPipeline","DTPipeline/Pre-processed","DTPipeline/Processed","DTPipeline/Recipes","DTPipeline/Settings","DTPipeline/Settings/Batch Settings","DTPipeline/Settings/Temp","DTPipeline/BackupCopies"]
 missingDir = []
 for dir in dirName:
     if not os.path.exists(dir):
@@ -17,7 +17,7 @@ else:
     print("All directories were successfully validated.")
 
 print("Running File check...")
-fileName = ["DTPipeline/Settings/Batch Settings/dummySettings.txt","DTPipeline/Settings/Temp/ProcessingState.json"]
+fileName = ["DTPipeline/Settings/Batch Settings/dummySettings.txt","DTPipeline/Settings/Temp/fileExtensions.json","DTPipeline/Settings/Temp/ProcessingState.json"]
 missingFile = []
 for file in fileName:
     if not os.path.exists(file):
@@ -56,6 +56,22 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
                             data['ProcessingState'] = 2
                             json.dump(data, outfile)
                             print("Processing State Updated: " +str(2))
+                    except FileExistsError:
+                        print("Error overwriting file: " +file)
+                elif (file == "DTPipeline/Settings/Temp/fileExtensions.json"):
+                    try:
+                        data = {}
+                        data['knownFileExtensions'] = {}
+                        data['knownFileExtensions'][0] = ".MODEL"
+                        data['knownFileExtensions'][1] = ".CATPart"
+                        data['knownFileExtensions'][2] = ".CATProduct"
+                        data['ignoredFileExtensions'] = {}
+                        data['knownRecipeExtensions'] = {}
+                        data['ignoredRecipeExtensions'] = {}
+                        #Write file to disk
+                        file = "DTPipeline/Settings/Temp/fileExtensions.json"
+                        with open(file, 'w') as outfile:
+                            json.dump(data, outfile)
                     except FileExistsError:
                         print("Error overwriting file: " +file)
                 else:

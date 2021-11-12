@@ -6,7 +6,7 @@ with open('jobQueue.json') as json_file:
     for batchID in data['jobQueue']:
         for jobID in data['jobQueue'][batchID]:
             for fileID in data['jobQueue'][batchID][jobID]:
-                if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] == 0):
+                if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] != 0):
                     print('File Priority: ' +str(data['jobQueue'][batchID][jobID][fileID]['filePriority']))
                     print('Name: ' +data['jobQueue'][batchID][jobID][fileID]['fileName'])
                     print('File path non-processed: ' +data['jobQueue'][batchID][jobID][fileID]['filePathNP'])
