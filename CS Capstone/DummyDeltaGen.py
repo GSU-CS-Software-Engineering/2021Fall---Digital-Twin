@@ -4,10 +4,10 @@ import sys
 
 from pathlib import Path
 
-print("Processing file: "+str(sys.argv[1])
-+"\nWith input location: "+str(sys.argv[2]+"/"+sys.argv[1])
-+"\nWith output location: "+str(sys.argv[3]+"/"+sys.argv[1])
-+"\nWith settings location: "+str(sys.argv[4]+"/"))
+#print("Processing file: "+str(sys.argv[1])
+#+"\nWith input location: "+str(sys.argv[2]+"/"+sys.argv[1])
+#+"\nWith output location: "+str(sys.argv[3]+"/"+sys.argv[1])
+#+"\nWith settings location: "+str(sys.argv[4]+"/"))
 
 testFile = os.path.exists(sys.argv[2]+"/"+sys.argv[1])
 if (testFile):

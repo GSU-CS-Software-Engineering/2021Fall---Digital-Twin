@@ -1,7 +1,7 @@
 import json
 
 #Read a json file
-with open('jobQueue.json') as json_file:
+with open('DTPipeline/Settings/Temp/jobQueue.json') as json_file:
     data = json.load(json_file)
     for batchID in data['jobQueue']:
         for jobID in data['jobQueue'][batchID]:

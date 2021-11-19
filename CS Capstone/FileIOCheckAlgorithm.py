@@ -4,30 +4,32 @@ import json
 import glob
 
 #initialize variables
+
 #Read a json file
-with open("DTPipeline/Settings/Temp/fileExtensions.json") as json_file:
-    data = json.load(json_file)
+file1 = open("DTPipeline/Settings/Temp/fileExtensions.json", 'r')
+with file1 as json_file1:
+    fileExtensionsJson = json.load(json_file1)
+    file1.close()
 fileExtensions = [] #list of known extensions
-for item in data['knownFileExtensions']:
-    fileExtensions.append(data['knownFileExtensions'][item])
+for item in fileExtensionsJson['knownFileExtensions']:
+    fileExtensions.append(item)
 
 ignoredExtensions = [] #list for ignored file extensions
-for item in data['ignoredFileExtensions']:
-    fileExtensions.append(data['ignoredFileExtensions'][item])
+for item in fileExtensionsJson['ignoredFileExtensions']:
+    ignoredExtensions.append(item)
 
 recipeExtensions = [] #list of known recipe extensions
-for item in data['knownRecipeExtensions']:
-    fileExtensions.append(data['knownRecipeExtensions'][item])
+for item in fileExtensionsJson['knownRecipeExtensions']:
+    recipeExtensions.append(item)
 
 ignoredRecipeExtensions = [] #list for ignored recipe extensions
-for item in data['ignoredRecipeExtensions']:
-    fileExtensions.append(data['ignoredRecipeExtensions'][item])
+for item in fileExtensionsJson['ignoredRecipeExtensions']:
+    ignoredRecipeExtensions.append(item)
 
 recipeList = []
 preProcessedFiles = {} #json dictionary
-preProcessedFiles['settingsFile'] = 'default'
-preProcessedFiles['conversionFileList'] = {}
-fileCount = 0 #global file count for each list
+fileCount = -1 #global file count for each list
+listCount = -1 #start list count at negative 1 so that list count is incremented to 0
 
 for root, dirs, files in os.walk('DTPipeline/Recipes'):
     for file in files:
@@ -53,10 +55,10 @@ for root, dirs, files in os.walk('DTPipeline/Recipes'):
                     if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
                         validInput = True
                         if (decision == "add"):
-                            fileWithExtension = os.path.splitext(file_name)
+                            fileWithExtension = os.path.splitext(file)
                             recipeExtensions.append(fileWithExtension[1])
                         elif (decision == "ignore"):
-                            fileWithExtension = os.path.splitext(file_name)
+                            fileWithExtension = os.path.splitext(file)
                             ignoredRecipeExtensions.append(fileWithExtension[1])
                         elif (decision == "remove"):
                             os.remove(os.path.join(root, file))
@@ -73,21 +75,41 @@ if (len(recipeList) > 1):
     iteration = 0
     validInput = False
     while (validInput == False):
+        print("List of recipe files discovered: ")
+        sorted(recipeList)
+        for recipe in recipeList:
+            print(recipe)
         recipe = input("Warning, multiple recipe files were discovered. \nPlease enter the file name and extension of the recipe for this batch: \n")
         for file in recipeList:
-            if ("DTPipeline/Recipes/"+recipe == file):
+            if (recipe == file):
                 validInput = True
-                preProcessedFiles['settingsFile'] = file
-        if (validInput == False and iteration > 0):
+                listCount += 1
+                preProcessedFiles[listCount] = {}
+                preProcessedFiles[listCount]['settingsFile'] = file
+                preProcessedFiles[listCount]['conversionFileList'] = {}
+        if (validInput == False):
             print("The selected file "+recipe+" was not found, please enter a valid filename from the following: ")
             print(recipeList)
+        iteration += 1
+elif (len(recipeList) == 0):
+    from ProcessState import setProcessState
+    print("From: "+str(sys.argv[0]))
+    setProcessState(-1)
+    sys.exit()
+else:
+    listCount = 0
+    preProcessedFiles[listCount] = {}
+    preProcessedFiles[listCount]['settingsFile'] = recipeList[0]
+    preProcessedFiles[listCount]['conversionFileList'] = {}
 
 for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
     for file in files:
-        if (os.path.exists('jobQueue.json')):
+        if (os.path.exists('DTPipeline/Settings/Temp/jobQueue.json')):
             #Read a json file
-            with open('jobQueue.json') as json_file:
-                data = json.load(json_file)
+            file2 = open('DTPipeline/Settings/Temp/jobQueue.json', 'r')
+            with file2 as json_file2:
+                data = json.load(json_file2)
+                file1.close()
                 for batchID in data['jobQueue']:
                     for jobID in data['jobQueue'][batchID]:
                         for fileID in data['jobQueue'][batchID][jobID]:
@@ -102,16 +124,18 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                                         if (file.endswith(ext)):
                                             knownExt = True
                                             if (knownExt == True):
-                                                #If file extension is known, add it to the proper location in the json object
-                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = path
-                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
                                                 fileCount += 1
+                                                #If file extension is known, add it to the proper location in the json object
+                                                preProcessedFiles[listCount]['conversionFileList'][fileCount] = {}
+                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = root
+                                                preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
+
                             else:
                                 print("File: "+file+" has already been added to the queue, skipping.")
         else:
             ignoreExt = False
             for iExt in ignoredExtensions:
-                if (file.endsWith(knownExt)):
+                if (file.endsWith(iExt)):
                     ignoreExt = True
             if (ignoreExt == False):
                 knownExt = False
@@ -119,10 +143,13 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                     if (file.endswith(ext)):
                         knownExt = True
                         if (knownExt == True):
-                            #If file extension is known, add it to the proper location in the json object
-                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = path
-                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
                             fileCount += 1
+                            print("List count: "+str(listCount))
+                            #If file extension is known, add it to the proper location in the json object
+                            preProcessedFiles[listCount]['conversionFileList'][fileCount] = {}
+                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = root
+                            preProcessedFiles[listCount]['conversionFileList'][fileCount]['fileName'] = file
+
                 if (knownExt == False):
                     print("Warning, the extension for the file: "+file+" was not an expected extension.")
                     print("To add the extension to the list of expected file extensions, enter the word: add")
@@ -134,10 +161,10 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                         if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
                             validInput = True
                             if (decision == "add"):
-                                fileWithExtension = os.path.splitext(file_name)
+                                fileWithExtension = os.path.splitext(file)
                                 fileExtensions.append(fileWithExtension[1])
                             elif (decision == "ignore"):
-                                fileWithExtension = os.path.splitext(file_name)
+                                fileWithExtension = os.path.splitext(file)
                                 ignoredExtensions.append(fileWithExtension[1])
                             elif (decision == "remove"):
                                 os.remove(os.path.join(root, file))
@@ -150,22 +177,28 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                             decision = input("Please enter one of the following keywords: \nadd \nignore \nremove \nunlist \n")
 try:
     #Write file to disk
-    with open('fileListUnsorted.json', 'w') as outfile:
-        json.dump(preProcessedFiles, outfile)
+    file1 = open('DTPipeline/Settings/Temp/fileListUnsorted.json', 'w')
+    with file1 as outfile1:
+        json.dump(preProcessedFiles, outfile1)
+        file1.close()
 except FileExistsError:
     print("File already exists")
 
 try:
-    data['knownFileExtensions'] = fileExtensions #list of known extensions
-    data['ignoredFileExtensions'] = ignoredExtensions #list for ignored extensions
-    data['knownRecipeExtensions'] = recipeExtensions #list of known recipe extensions
-    data['ignoredRecipeExtensions'] = ignoredRecipeExtensions #list for ignored recipe extensions
+    fileExtensionsJson['knownFileExtensions'] = fileExtensions #list of known extensions
+    fileExtensionsJson['ignoredFileExtensions'] = ignoredExtensions #list for ignored extensions
+    fileExtensionsJson['knownRecipeExtensions'] = recipeExtensions #list of known recipe extensions
+    fileExtensionsJson['ignoredRecipeExtensions'] = ignoredRecipeExtensions #list for ignored recipe extensions
+
+    file2 = open('DTPipeline/Settings/Temp/fileExtensions.json', 'w')
     #Write file to disk
-    with open('DTPipeline/Settings/Temp/ProcessingState.json', 'w') as outfile:
-        json.dump(data, outfile)
+    with file2 as outfile2:
+        json.dump(fileExtensionsJson, outfile2)
+        file2.close()
 except FileExistsError:
     print("File already exists")
 
 #Set the process state to 3
 from ProcessState import setProcessState
+print("From: "+str(sys.argv[0]))
 setProcessState(3)

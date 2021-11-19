@@ -3,48 +3,45 @@ import sys
 import json
 import subprocess
 
-#dictionary for holding json file structure
-data = {}
-data['jobQueue'] = {}
-#Number of batches will be equal to the number of unique settings files
-numBatches = int(sys.argv[1]);
-numJobs = int(sys.argv[2]);
-numFiles = int(sys.argv[3]);
+if (len(sys.argv) > 1):
+    #Number of batches will be equal to the number of unique settings files
+    numBatches = int(sys.argv[1]);
+    numJobs = int(sys.argv[2]);
+    numFiles = int(sys.argv[3]);
 
-for order in range(2):
-    #populate dictionaryfor batchID in data['jobQueue']:
-    for batchID in range(numBatches):
-        print("Batch ID: " +str(batchID))
-        #Batch Identifier key for each batch
-        data['jobQueue'][batchID] = {}
-        for jobID in range(numJobs):
-            print("Job ID: " +str(jobID))
-            #Job Identifier key for each job within a batch
-            data['jobQueue'][batchID][jobID] = {}
-            for fileID in range(numFiles):
-                print("File ID: " +str(fileID))
-                data['jobQueue'][batchID][jobID][fileID] = {}
-                if (order == 0):
-                    print("Printing test files to Pre-processed directory.")
-                    #Here we have to manually set the file priority, but this would be done by sorting
-                    data['jobQueue'][batchID][jobID][fileID]['filePriority'] = fileID + 1
-                    data['jobQueue'][batchID][jobID][fileID]['fileName'] = 'test' + str(fileID) +".txt"
-                    data['jobQueue'][batchID][jobID][fileID]['filePathNP'] = 'DTPipeline/Processed'
-                    data['jobQueue'][batchID][jobID][fileID]['filePathP'] = 'DTPipeline/Pre-processed'
-                    data['jobQueue'][batchID][jobID][fileID]['filePathSettings'] = 'DTPipeline/Settings/Batch Settings/dummySettings.txt'
-                else:
-                    #Here we have to manually set the file priority, but this would be done by sorting
-                    data['jobQueue'][batchID][jobID][fileID]['filePriority'] = fileID + 1
-                    data['jobQueue'][batchID][jobID][fileID]['fileName'] = 'test' + str(fileID) +".txt"
-                    data['jobQueue'][batchID][jobID][fileID]['filePathNP'] = 'DTPipeline/Pre-processed'
-                    data['jobQueue'][batchID][jobID][fileID]['filePathP'] = 'DTPipeline/Processed'
-                    data['jobQueue'][batchID][jobID][fileID]['filePathSettings'] = 'DTPipeline/Settings/Batch Settings/dummySettings.txt'
-    try:
-        #Write file to disk
-        with open('jobQueue.json', 'w') as outfile:
-            json.dump(data, outfile)
-    except FileExistsError:
-        print("File jobQueue.json already exists")
-    if (order == 0):
-        #Run Queueing Algorithm to write all files to reverse order.
-        subprocess.run(["python3", "QueuingAlgorithm.py", "0"])
+    print("Printing test files to Pre-processed directory.")
+    for j in range(int(sys.argv[2])*int(sys.argv[3])):
+        fileName = "DTPipeline/Pre-processed/test.CATPart"
+        fileExists = os.path.exists(fileName)
+        if (fileExists):
+            i = 0
+            #Split filename and extension
+            temp = fileName.split('.')
+            while (fileExists):
+                i += 1
+                fileExists = os.path.exists(temp[0]+"("+str(i)+")."+temp[1])
+            file = open(temp[0]+"("+str(i)+")."+temp[1], 'x')
+        else:
+            file = open(fileName, 'x')
+        file.close()
+
+    print("Printing test files to Recipes directory.")
+    for j in range(int(sys.argv[1])):
+        settingsFileName = "DTPipeline/Recipes/test.Recipe"
+        settingsFileExists = os.path.exists(settingsFileName)
+        if (settingsFileExists):
+            i = 0
+            #Split filename and extension
+            temp = settingsFileName.split('.')
+            while (settingsFileExists):
+                i += 1
+                settingsFileExists = os.path.exists(temp[0]+"("+str(i)+")."+temp[1])
+            file = open(temp[0]+"("+str(i)+")."+temp[1], 'x')
+        else:
+            file = open(settingsFileName, 'x')
+        file.close()
+else:
+    print("Please use the following argument input format: "
+    +"int(number of batches) "
+    +"int(number of jobs per batch) "
+    +"int(number of files per job)")

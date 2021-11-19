@@ -51,10 +51,11 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
                     try:
                         data = {}
                         #Write file to disk
-                        file = "DTPipeline/Settings/Temp/ProcessingState.json"
-                        with open(file, 'w') as outfile:
+                        file = open("DTPipeline/Settings/Temp/ProcessingState.json", 'w')
+                        with file as outfile:
                             data['ProcessingState'] = 2
                             json.dump(data, outfile)
+                            file.close()
                             print("Processing State Updated: " +str(2))
                     except FileExistsError:
                         print("Error overwriting file: " +file)
@@ -69,9 +70,10 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
                         data['knownRecipeExtensions'] = {}
                         data['ignoredRecipeExtensions'] = {}
                         #Write file to disk
-                        file = "DTPipeline/Settings/Temp/fileExtensions.json"
-                        with open(file, 'w') as outfile:
+                        file = open("DTPipeline/Settings/Temp/fileExtensions.json", 'w')
+                        with file as outfile:
                             json.dump(data, outfile)
+                            file.close()
                     except FileExistsError:
                         print("Error overwriting file: " +file)
                 else:
@@ -81,10 +83,12 @@ if (len(missingDir) > 0 or len(missingFile) > 0):
             except FileExistsError:
                 print("File " +file +" already exists")
         from ProcessState import setProcessState
+        print("From: "+str(sys.argv[0]))
         setProcessState(1) #modelPipelineSetup.py finished
     else:
         print("First time setup aborted.\nExiting.")
         if (os.path.exists("DTPipeline/Settings/Temp/ProcessingState.json")):
             from ProcessState import setProcessState
+            print("From: "+str(sys.argv[0]))
             setProcessState(-1) #modelPipelineSetup.py finished
         sys.exit()
