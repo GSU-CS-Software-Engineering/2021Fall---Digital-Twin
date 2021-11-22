@@ -9,7 +9,7 @@ def getProcessState():
         data = json.load(processingStateInFile)
         print("Retrieved process state: "+str(data['ProcessingState']))
         processingState.close()
-    return data
+    return int(data)
 
 #A function for tracking what state the pipeline is currently in
 def setProcessState(stateID):
