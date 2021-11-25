@@ -6,7 +6,7 @@ import subprocess
 from ProcessState import setProcessState
 from ProcessState import getProcessState
 
-defaultArgs = ["0"]
+defaultArgs = [0, 1]
 
 subprocess.run(["python3", "ModelPipelineSetup.py"])
 if (getProcessState() == -1):
