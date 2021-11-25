@@ -17,7 +17,7 @@ else:
     print("All directories were successfully validated.")
 
 print("Running File check...")
-fileName = ["DTPipeline/Settings/Batch Settings/dummySettings.txt","DTPipeline/Settings/Temp/fileExtensions.json","DTPipeline/Settings/Temp/ProcessingState.json"]
+fileName = ["DTPipeline/Settings/Batch Settings/Settings.txt","DTPipeline/Settings/Temp/fileExtensions.json","DTPipeline/Settings/Temp/ProcessingState.json"]
 missingFile = []
 for file in fileName:
     if not os.path.exists(file):
