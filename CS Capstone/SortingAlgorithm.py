@@ -30,7 +30,7 @@ with file2 as json_file2:
     unsortedFiles = json.load(json_file2)
     file2.close()
     print("Unsorted files: ", unsortedFiles)
-    #time.sleep(3)
+#    time.sleep(3)
     from operator import itemgetter
     sortedFiles = {}
     for listID in unsortedFiles:
@@ -49,7 +49,7 @@ with file2 as json_file2:
                     sortedFiles[str(listID)]['conversionFileList'][str(i)]['fileName'] = unsortedFiles[str(listID)]['conversionFileList'][str(j)]['fileName']
                     sortedFiles[str(listID)]['conversionFileList'][str(i)]['filePath'] = unsortedFiles[str(listID)]['conversionFileList'][str(j)]['filePath']
     print("Sorted files: ", sortedFiles)
-    time.sleep(10)
+#    time.sleep(10)
     data['jobQueue'][numBatches] = {}
     for listID in sortedFiles:
         listID = int(listID)
