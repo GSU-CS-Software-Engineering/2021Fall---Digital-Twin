@@ -21,10 +21,10 @@ if (os.path.exists("DTPipeline/Settings/Temp/ProcessingState.json")):
     from ProcessState import getProcessState
     while (getProcessState() == 0 or i == 0):
 
-        if (i == 0 and len(sys.argv) > 3 and int(sys.argv[2]) == 1):
-            subprocess.run(["python3", "WriteToFileExample.py", "2", "5", "20"])
-            if (getProcessState() == -1):
-                sys.exit()
+#        if (i == 0 and len(sys.argv) > 3 and int(sys.argv[2]) == 1):
+#            subprocess.run(["python3", "WriteToFileExample.py", "2", "5", "20"])
+#            if (getProcessState() == -1):
+#                sys.exit()
 
         subprocess.run(["python3", "FileIOCheckAlgorithm.py"])
         if (getProcessState() == -1):
