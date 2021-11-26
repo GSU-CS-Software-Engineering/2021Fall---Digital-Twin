@@ -48,5 +48,4 @@ if (os.path.exists("DTPipeline/Settings/Temp/ProcessingState.json")):
             sys.exit()
         i += 1
 
-getProcessState()
 print("Pipeline Exiting")
