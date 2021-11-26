@@ -69,7 +69,7 @@ with file2 as json_file2:
         json.dump(data, json_file3)
         file.close()
 
-if (True):
+if (len(sortedFiles[str(0)]['conversionFileList']) > 0):
     #Set the process state to 3
     from ProcessState import setProcessState
     print("From: "+str(sys.argv[0]))
