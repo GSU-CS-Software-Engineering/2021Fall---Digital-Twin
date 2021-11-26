@@ -1,0 +1,24 @@
+Model Pipeline Installation instructions:
+Note: All scripts currently use localized directory paths, so moving the scripts to subfolders
+could throw off their searches for specific directories or files. Each directory check would
+ have to be changed to use absolute paths before the scripts can be moved.
+
+The pipeline requires Python 3 with its default packages to run,
+and uses json file structures for inter-process communication.
+
+To install the model pipeline, simply download the scripts into a folder of the user’s choice
+and run the PipelineController.py to perform a first time setup.
+The ModelPipelineSetup.py script will automatically be called
+and set up the necessary files to run the program.
+Alternatively, the ModelPipelineSetup.py can be run individually from the command line.
+
+Model files that would be processed should be placed in the Pre-processed directory,
+and the recipe file associated with the batch should be placed in the Recipe folder.
+The program is set up to only run if there is a recipe file for the batch,
+so bear in mind that at least one recipe file should be present before running a batch
+or the program will request to abort the current queue.
+
+The file structure is set specifically, so renaming any files, scripts,
+or directories will result in the program losing functionality of those renamed objects.
+The only files that cannot be automatically detected and recreated are the scripts themselves,
+so deleting the DTPipeline directory is safe.
