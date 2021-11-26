@@ -144,7 +144,6 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                         knownExt = True
                         if (knownExt == True):
                             fileCount += 1
-                            print("List count: "+str(listCount))
                             #If file extension is known, add it to the proper location in the json object
                             preProcessedFiles[listCount]['conversionFileList'][fileCount] = {}
                             preProcessedFiles[listCount]['conversionFileList'][fileCount]['filePath'] = root
