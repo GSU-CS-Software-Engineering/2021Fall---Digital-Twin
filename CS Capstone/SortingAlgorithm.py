@@ -75,7 +75,6 @@ if (len(sortedFiles[str(0)]['conversionFileList']) > 0):
     print("From: "+str(sys.argv[0]))
     setProcessState(4)
 else:
-    print("Something went wrong, exit Queue")
     #Set the process state to -1
     from ProcessState import setProcessState
     print("From: "+str(sys.argv[0]))
