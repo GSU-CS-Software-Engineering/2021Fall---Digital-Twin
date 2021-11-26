@@ -17,7 +17,7 @@ if os.path.exists('DTPipeline/Settings/Temp/jobQueue.json'):
                 for fileID in data['jobQueue'][batchID][jobID]:
                     print("File ID: " +str(fileID))
                     if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] == filePriority):
-                        if (sys.argv[1] == "1"):
+                        if (int(sys.argv[1]) == 1):
                             from shutil import copyfile
                             try:
                                 #Copy file to disk
@@ -44,7 +44,7 @@ if os.path.exists('DTPipeline/Settings/Temp/jobQueue.json'):
                                     print("Copying File:",str(data['jobQueue'][batchID][jobID][fileID]['fileName']))
                             except FileExistsError:
                                 print("Directory "+str(data['jobQueue'][batchID][jobID][fileID]['fileName'])+" already exists and could not be overwritten.")
-                        if (len(sys.argv[1]) > 1 and sys.argv[1] == 1):
+                        if (len(sys.argv[1]) > 1 and int(sys.argv[2]) == 1):
                             #Initialize command
                             subprocess.run(["python3", "DummyDeltaGen.py",
                             str(data['jobQueue'][batchID][jobID][fileID]['fileName']),
