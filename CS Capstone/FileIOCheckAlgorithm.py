@@ -2,7 +2,6 @@ import os
 import sys
 import json
 import glob
-import string
 
 #initialize variables
 
@@ -110,14 +109,14 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
             file2 = open('DTPipeline/Settings/Temp/jobQueue.json', 'r')
             with file2 as json_file2:
                 data = json.load(json_file2)
-                file1.close()
+                file2.close()
                 for batchID in data['jobQueue']:
                     for jobID in data['jobQueue'][batchID]:
                         for fileID in data['jobQueue'][batchID][jobID]:
                             if (data['jobQueue'][batchID][jobID][fileID]['filePriority'] != 0 and file != data['jobQueue'][batchID][jobID][fileID]['fileName']):
                                 ignoreExt = False
                                 for iExt in ignoredExtensions:
-                                    if (file.endsWith(iExt)):
+                                    if (file.endswith(iExt)):
                                         ignoreExt = True
                                 if (ignoreExt == False):
                                     knownExt = False
@@ -136,7 +135,7 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
         else:
             ignoreExt = False
             for iExt in ignoredExtensions:
-                if (file.endsWith(iExt)):
+                if (file.endswith(iExt)):
                     ignoreExt = True
             if (ignoreExt == False):
                 knownExt = False
