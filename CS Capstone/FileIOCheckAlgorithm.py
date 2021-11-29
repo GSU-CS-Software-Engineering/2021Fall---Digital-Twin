@@ -52,7 +52,7 @@ for root, dirs, files in os.walk('DTPipeline/Recipes'):
                 decision = input("To ignore this file during this run, enter the word: unlist\n")
                 validInput = False
                 while (validInput == False):
-                    if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
+                    if (decision == "add" or decision == "ignore" or decision == "remove" or decision == "unlist"):
                         validInput = True
                         if (decision == "add"):
                             fileWithExtension = os.path.splitext(file)
@@ -157,7 +157,7 @@ for root, dirs, files in os.walk('DTPipeline/Pre-processed'):
                     decision = input("To ignore this file during this run, enter the word: unlist\n")
                     validInput = False
                     while (validInput == False):
-                        if (decision == "add" or decision == "ignore" or decision == "remove" or deicision == "unlist"):
+                        if (decision == "add" or decision == "ignore" or decision == "remove" or decision == "unlist"):
                             validInput = True
                             if (decision == "add"):
                                 fileWithExtension = os.path.splitext(file)
