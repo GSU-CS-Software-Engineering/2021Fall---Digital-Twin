@@ -57,6 +57,7 @@ for root, dirs, files in os.walk('DTPipeline/Recipes'):
                         if (decision == "add"):
                             fileWithExtension = os.path.splitext(file)
                             recipeExtensions.append(fileWithExtension[1])
+                            recipeList.append(os.path.join(root, file))
                         elif (decision == "ignore"):
                             fileWithExtension = os.path.splitext(file)
                             ignoredRecipeExtensions.append(fileWithExtension[1])
